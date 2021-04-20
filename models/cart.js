@@ -18,7 +18,7 @@ module.exports = class Cart {
             if (existingProduct) {
                 updatedProduct = { ...existingProduct};
                 updatedProduct.qty += 1;
-                cart.proudcts = [...cart.products];
+                cart.products = [...cart.products];
                 cart.products[existingProductIndex] = updatedProduct;
             } else {
                 updatedProduct = { id: id, qty: 1 };
@@ -48,6 +48,17 @@ module.exports = class Cart {
                 console.log(err);
             });
 
+        });
+    }
+
+    static getCart(callback) {
+        fs.readFile(p, (err, fileContent) => {
+            const cart = JSON.parse(fileContent);
+            if (err) {
+                callback(null);
+            } else {
+                callback(cart);
+            }
         });
     }
 
